@@ -1,0 +1,252 @@
+[
+  {
+    "id": "less_rice",
+    "appliesTo": [
+      "cai_png (rice component)"
+    ],
+    "kcalDeltaLow": -130,
+    "kcalDeltaHigh": -60,
+    "label": "Less rice",
+    "basis": "Swap full rice (200 g) for less rice (100-150 g, ESTIMATE): 50-100 g removed x 130 kcal/100 g",
+    "source": "HPB F05090006; CNA/Mount Elizabeth dietitian (hawker rice ~200 g); modifiers sheet M11",
+    "confidence": "Medium"
+  },
+  {
+    "id": "half_rice",
+    "appliesTo": [
+      "cai_png (rice component)"
+    ],
+    "kcalDeltaLow": -170,
+    "kcalDeltaHigh": -100,
+    "label": "Half rice",
+    "basis": "Half of the full-rice component range (200-340 kcal)",
+    "source": "HPB F05090006; M11",
+    "confidence": "Medium"
+  },
+  {
+    "id": "no_rice",
+    "appliesTo": [
+      "cai_png (rice component)"
+    ],
+    "kcalDeltaLow": -340,
+    "kcalDeltaHigh": -200,
+    "label": "No rice",
+    "basis": "Remove the full-rice component",
+    "source": "HPB F05090006; M12",
+    "confidence": "Medium"
+  },
+  {
+    "id": "extra_rice",
+    "appliesTo": [
+      "cai_png (rice component)"
+    ],
+    "kcalDeltaLow": 100,
+    "kcalDeltaHigh": 170,
+    "label": "More rice (+half bowl)",
+    "basis": "+100 g cooked rice x 130 kcal/100 g, D3 band",
+    "source": "HPB F05090006; M13",
+    "confidence": "Medium"
+  },
+  {
+    "id": "less_rice_flavoured_cr",
+    "appliesTo": [
+      "chicken_rice_steamed",
+      "chicken_rice_roasted"
+    ],
+    "kcalDeltaLow": -200,
+    "kcalDeltaHigh": -90,
+    "label": "Less rice",
+    "basis": "Remove 25-50% (ESTIMATE) of the 220 g chicken rice (173 kcal/100 g)",
+    "source": "HPB F05100154 (Steamed chicken rice, rice only)",
+    "confidence": "Medium"
+  },
+  {
+    "id": "half_rice_flavoured_cr",
+    "appliesTo": [
+      "chicken_rice_steamed",
+      "chicken_rice_roasted"
+    ],
+    "kcalDeltaLow": -200,
+    "kcalDeltaHigh": -150,
+    "label": "Half rice",
+    "basis": "Half of HPB rice-only row (381 kcal); low end assumes a 20% smaller rice portion",
+    "source": "HPB F05100154",
+    "confidence": "Medium"
+  },
+  {
+    "id": "less_rice_flavoured_nl",
+    "appliesTo": [
+      "nasi_lemak_basic",
+      "nasi_lemak_wing"
+    ],
+    "kcalDeltaLow": -180,
+    "kcalDeltaHigh": -90,
+    "label": "Less rice",
+    "basis": "Remove 25-50% (ESTIMATE) of the 214 g coconut rice (168 kcal/100 g)",
+    "source": "HPB F05100090 (Nasi lemak, rice only)",
+    "confidence": "Medium"
+  },
+  {
+    "id": "half_rice_flavoured_nl",
+    "appliesTo": [
+      "nasi_lemak_basic",
+      "nasi_lemak_wing"
+    ],
+    "kcalDeltaLow": -180,
+    "kcalDeltaHigh": -140,
+    "label": "Half rice",
+    "basis": "Half of HPB rice-only row (360 kcal); low end assumes a 20% smaller rice portion",
+    "source": "HPB F05100090",
+    "confidence": "Medium"
+  },
+  {
+    "id": "plain_rice_cr",
+    "appliesTo": [
+      "chicken_rice_steamed",
+      "chicken_rice_roasted"
+    ],
+    "kcalDeltaLow": -120,
+    "kcalDeltaHigh": -90,
+    "label": "Plain white rice instead of chicken rice",
+    "basis": "HPB-derived: 381 kcal (220 g chicken rice) minus 286 kcal (220 g plain rice) = -95; HealthHub says about -120",
+    "source": "HPB F05100154, F05090006; HealthHub \"Cut 100 calories...\" (M14)",
+    "confidence": "High"
+  },
+  {
+    "id": "plain_rice_nl",
+    "appliesTo": [
+      "nasi_lemak_basic",
+      "nasi_lemak_wing"
+    ],
+    "kcalDeltaLow": -120,
+    "kcalDeltaHigh": -80,
+    "label": "Plain white rice instead of coconut rice",
+    "basis": "HPB-derived: 360 kcal (214 g coconut rice) minus 278 kcal (214 g plain rice) = -82; HealthHub says about -120",
+    "source": "HPB F05100090, F05090006; HealthHub (M14)",
+    "confidence": "High"
+  },
+  {
+    "id": "leave_clear_soup",
+    "appliesTo": [
+      "fishball_noodles_soup",
+      "ytf_clear_mixed",
+      "ytf_clear_fried"
+    ],
+    "kcalDeltaLow": 0,
+    "kcalDeltaHigh": 0,
+    "label": "Leave the soup",
+    "basis": "Clear soup carries little energy; the change is mainly sodium (about -33%)",
+    "source": "HK Centre for Food Safety lab (M08)",
+    "confidence": "Medium"
+  },
+  {
+    "id": "leave_half_laksa_gravy",
+    "appliesTo": [
+      "laksa",
+      "ytf_laksa_boiled",
+      "ytf_laksa_mixed"
+    ],
+    "kcalDeltaLow": -190,
+    "kcalDeltaHigh": -120,
+    "label": "Leave some of the gravy",
+    "basis": "Leave 1/3 to 1/2 (ESTIMATE) of HPB laksa gravy (361 g = 365 kcal)",
+    "source": "HPB F10040008 (M10, provisional)",
+    "confidence": "Low"
+  },
+  {
+    "id": "add_curry_gravy",
+    "appliesTo": [
+      "cai_png"
+    ],
+    "kcalDeltaLow": 30,
+    "kcalDeltaHigh": 70,
+    "label": "Add curry gravy over rice (1 ladle)",
+    "basis": "HPB chicken curry gravy 47 g = 49 kcal, D4 band",
+    "source": "HPB F10040003 (M20)",
+    "confidence": "Medium"
+  },
+  {
+    "id": "add_braised_gravy",
+    "appliesTo": [
+      "cai_png"
+    ],
+    "kcalDeltaLow": 10,
+    "kcalDeltaHigh": 30,
+    "label": "Add braised (lor) gravy over rice (1 ladle)",
+    "basis": "HPB lor bak gravy 51 g = 18 kcal, D4 band",
+    "source": "HPB F10040009 (M21)",
+    "confidence": "Medium"
+  },
+  {
+    "id": "extra_fried_egg",
+    "appliesTo": [
+      "cai_png",
+      "nasi_lemak_*",
+      "mee_goreng",
+      "economic_bee_hoon",
+      "chicken_rice_*",
+      "char_kway_teow"
+    ],
+    "kcalDeltaLow": 70,
+    "kcalDeltaHigh": 120,
+    "label": "Extra fried egg",
+    "basis": "HPB fried egg 39 g = 91 kcal, D6 band",
+    "source": "HPB F01050005",
+    "confidence": "Medium"
+  },
+  {
+    "id": "extra_boiled_egg",
+    "appliesTo": [
+      "cai_png",
+      "chicken_rice_*",
+      "nasi_lemak_*"
+    ],
+    "kcalDeltaLow": 60,
+    "kcalDeltaHigh": 100,
+    "label": "Extra hard-boiled or braised egg",
+    "basis": "HPB hard-boiled egg 55 g = 75 kcal, D6 band",
+    "source": "HPB F01060002 (\"Borrowed\")",
+    "confidence": "Medium"
+  },
+  {
+    "id": "add_curry_dip",
+    "appliesTo": [
+      "roti_prata_plain",
+      "roti_prata_egg"
+    ],
+    "kcalDeltaLow": 190,
+    "kcalDeltaHigh": 340,
+    "label": "Curry for dipping (1 bowl)",
+    "basis": "HPB prata curry 253 g = 238 kcal, D4 band",
+    "source": "HPB F10040013",
+    "confidence": "Medium"
+  },
+  {
+    "id": "extra_sambal",
+    "appliesTo": [
+      "nasi_lemak_basic",
+      "nasi_lemak_wing"
+    ],
+    "kcalDeltaLow": 50,
+    "kcalDeltaHigh": 100,
+    "label": "Extra sambal (1 portion)",
+    "basis": "HPB nasi lemak sambal 31 g = 68 kcal, D4 band",
+    "source": "HPB F10050008",
+    "confidence": "Medium"
+  },
+  {
+    "id": "ytf_add_noodles_or_rice",
+    "appliesTo": [
+      "ytf_clear_mixed",
+      "ytf_clear_fried",
+      "ytf_laksa_boiled",
+      "ytf_laksa_mixed"
+    ],
+    "kcalDeltaLow": 200,
+    "kcalDeltaHigh": 340,
+    "label": "Add noodles or rice",
+    "basis": "HPB difference: clear soup with rice/noodles 835 minus 7 pieces 578 = 257 (laksa: 1077 - 821 = 256), D3 band",
+    "source": "HPB F08010064, F08010063, F08010068, F08010067",
+    "confidence": "Low"
+  }
+]

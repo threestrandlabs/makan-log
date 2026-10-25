@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Makan Log",
+    "slug": "makan-log",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/plate-light-1024.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "makanlog",
+    "backgroundColor": "#FBF5EA",
+    "ios": {
+      "supportsTablet": true,
+      "icon": {
+        "light": "./assets/images/plate-light-1024.png",
+        "dark": "./assets/images/plate-dark-1024.png"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#FBF5EA",
+        "foregroundImage": "./assets/images/plate-light-1024.png",
+        "monochromeImage": "./assets/images/plate-light-1024.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/images/favicon.png",
+      "output": "static",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/plate-light-1024.png",
+          "imageWidth": 160,
+          "resizeMode": "contain",
+          "backgroundColor": "#FBF5EA",
+          "dark": {
+            "image": "./assets/images/plate-dark-1024.png",
+            "backgroundColor": "#1E2A26"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
