@@ -9,9 +9,12 @@ type Props = {
   padded?: boolean;
   style?: ViewStyle;
   edges?: ("top" | "bottom" | "left" | "right")[];
+  /** Rendered outside the ScrollView, pinned to the screen (e.g. a bottom toast) so it doesn't
+   * scroll away with the content. */
+  overlay?: React.ReactNode;
 };
 
-export function Screen({ children, scroll = true, padded = true, style, edges }: Props) {
+export function Screen({ children, scroll = true, padded = true, style, edges, overlay }: Props) {
   const { colors } = useTheme();
   const inner = (
     <View style={[padded && styles.padded, style]}>{children}</View>
@@ -29,6 +32,7 @@ export function Screen({ children, scroll = true, padded = true, style, edges }:
       ) : (
         <View style={styles.flex}>{inner}</View>
       )}
+      {overlay}
     </SafeAreaView>
   );
 }

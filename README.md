@@ -1,8 +1,10 @@
 # Makan Log (v0.1)
 
 A photo-logging demo for Singapore hawker meals: snap a plate, get an honest calorie **range**
-(never an exact number), tweak it ("less rice", "extra egg"...), save it to Today. Built with
-Expo + expo-router, TypeScript, and no backend — everything runs on-device.
+(never an exact number), tweak it ("less rice", "extra egg"...), save it to Today. Mixed plates
+(cai png / economy rice) get their own confirm step — rice as one row, each side as its own
+fixable guess, summed only once you confirm. Built with Expo + expo-router, TypeScript, and no
+backend — everything runs on-device.
 
 This is a prototype. See `SPEC.md` for the brief and `docs/decisions.md` for build decisions and
 data-mapping notes.
@@ -65,7 +67,8 @@ this folder still builds. See `docs/decisions.md` for the mapping details.
 app/                  expo-router routes (one file per screen)
 src/theme/             design tokens (generated) + ThemeProvider (light/dark)
 src/data/               NutritionSource, dish catalog, calorie-range calculator,
-                         simulated Recogniser, AsyncStorage-backed saved meals
+                         mixed-plate (cai png) data layer, simulated Recogniser,
+                         AsyncStorage-backed saved meals
 src/data/generated/     JSON generated from the dietitian's CSVs (npm run data)
 src/components/         shared UI (Button, Chip, RangeCard, Screen, ...)
 assets/samples/         bundled sample hawker photos (openly licensed, see docs/decisions.md)

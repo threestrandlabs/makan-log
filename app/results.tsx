@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { Image } from "expo-image";
 import { router, useLocalSearchParams } from "expo-router";
@@ -8,14 +8,14 @@ import { VariesBadge } from "@/components/Badge";
 import { useTheme } from "@/theme/ThemeProvider";
 import { radii, space8 } from "@/theme/theme";
 import { resolvePhotoParams } from "@/lib/photoFromParams";
-import { resolveGuesses } from "@/data/recogniser";
+import { resolveRecognition } from "@/data/recogniser";
 import { nutritionSource } from "@/data/nutritionSource";
 import { formatRange } from "@/data/calc";
-import type { DishGuess } from "@/data/types";
+import type { Confidence } from "@/data/types";
 
-const CONFIDENCE_LABEL: Record<DishGuess["confidence"], string> = {
-  high: "Best guess",
-  medium: "Or maybe",
+const CONFIDENCE_LABEL: Record<Confidence, string> = {
+  high: "Best match",
+  medium: "Worth a look",
   low: "Possibly",
 };
 
@@ -23,15 +23,27 @@ export default function ResultsScreen() {
   const { colors } = useTheme();
   const params = useLocalSearchParams<{ sample?: string; upload?: string }>();
   const photo = resolvePhotoParams(params);
-  const guesses = resolveGuesses(photo.input);
+  const recognition = resolveRecognition(photo.input);
   const [searching, setSearching] = useState(false);
   const [query, setQuery] = useState("");
 
   const photoQuery = photo.isUpload ? "upload=1" : `sample=${photo.input.kind === "sample" ? photo.input.sampleId : ""}`;
 
+  // SPEC "Mixed plates": a mixed plate has no top-3 whole-dish guess list - it goes straight to
+  // the mixed-plate Confirm layout (rice row + side chips). Covers direct deep links too.
+  useEffect(() => {
+    if (recognition.type === "mixed") {
+      router.replace(`/confirm?mixed=1&${photoQuery}`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recognition.type]);
+
   const searchResults = useMemo(() => (searching ? nutritionSource.search(query) : []), [searching, query]);
 
   const openDish = (dishId: string) => router.push(`/confirm?dish=${dishId}&${photoQuery}`);
+
+  if (recognition.type === "mixed") return null;
+  const guesses = recognition.guesses;
 
   return (
     <Screen>
@@ -54,29 +66,36 @@ export default function ResultsScreen() {
           Is it one of these?
         </Text>
         <Text variant="body" color="muted" style={{ marginTop: space8[1], marginBottom: space8[3] }}>
-          Our best guesses. Tap the one that looks right.
+          Our best guesses, closest first. Tap the one that fits.
         </Text>
 
         {guesses.map((g, i) => {
           const dish = nutritionSource.getDish(g.dishId);
           if (!dish) return null;
           const estimate = nutritionSource.applyModifiers(dish.id, []);
+          const isTop = i === 0;
           return (
             <Pressable
               key={`${g.dishId}-${i}`}
               onPress={() => openDish(dish.id)}
               style={[
                 styles.guessRow,
-                {
-                  borderColor: i === 0 ? colors.primary : colors.border,
-                  backgroundColor: i === 0 ? colors.primarySoft : colors.surface,
-                },
+                { borderColor: isTop ? colors.primary : colors.border, backgroundColor: colors.surface },
               ]}
             >
-              <View style={{ flex: 1 }}>
-                <Text variant="caption" color={i === 0 ? "primary" : "muted"}>
-                  {CONFIDENCE_LABEL[g.confidence]}
+              <View style={[styles.numberBadge, isTop ? { backgroundColor: colors.primary } : { borderColor: colors.border, borderWidth: 1 }]}>
+                <Text variant="bodyStrong" style={{ color: isTop ? colors.onPrimary : colors.textMuted }}>
+                  {i + 1}
                 </Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                {isTop ? (
+                  <View style={[styles.matchPill, { backgroundColor: colors.primary }]}>
+                    <Text variant="caption" style={{ color: colors.onPrimary, fontWeight: "700" as const }}>
+                      {CONFIDENCE_LABEL[g.confidence]}
+                    </Text>
+                  </View>
+                ) : null}
                 <Text variant="bodyStrong">{dish.name}</Text>
                 <View style={styles.rangeRow}>
                   <Text variant="label" color={estimate.hasEstimate ? "primary" : "muted"}>
@@ -85,15 +104,25 @@ export default function ResultsScreen() {
                   {estimate.variesALot ? <VariesBadge /> : null}
                 </View>
               </View>
+              {isTop ? (
+                <Text variant="heading" color="primary">
+                  ›
+                </Text>
+              ) : null}
             </Pressable>
           );
         })}
 
-        <Pressable onPress={() => setSearching((s) => !s)} style={{ marginTop: space8[4] }}>
-          <Text variant="bodyStrong" color="primary">
-            {searching ? "Hide search" : "None of these? Search instead"}
+        <View style={styles.searchPrompt}>
+          <Text variant="body" color="muted">
+            None of these?
           </Text>
-        </Pressable>
+          <Pressable onPress={() => setSearching((s) => !s)}>
+            <Text variant="bodyStrong" color="primary" style={styles.searchLink}>
+              ⌕ {searching ? "Hide search" : "Search instead"}
+            </Text>
+          </Pressable>
+        </View>
 
         {searching && (
           <View style={{ marginTop: space8[3] }}>
@@ -154,8 +183,29 @@ const styles = StyleSheet.create({
     marginBottom: space8[2],
     flexDirection: "row",
     alignItems: "center",
+    gap: space8[3],
+  },
+  numberBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: radii.pill,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  matchPill: {
+    alignSelf: "flex-start",
+    paddingHorizontal: space8[2],
+    paddingVertical: 2,
+    borderRadius: radii.pill,
+    marginBottom: 2,
   },
   rangeRow: { flexDirection: "row", alignItems: "center", gap: space8[2], marginTop: 4 },
+  searchPrompt: {
+    alignItems: "center",
+    marginTop: space8[5],
+    gap: space8[1],
+  },
+  searchLink: { textDecorationLine: "underline" },
   searchInput: {
     borderWidth: 1,
     borderRadius: radii.pill,

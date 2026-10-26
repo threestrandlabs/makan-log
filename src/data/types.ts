@@ -51,7 +51,24 @@ export interface RangeEstimate {
   closestMatchNote?: string;
 }
 
+export type Confidence = "high" | "medium" | "low";
+
 export interface DishGuess {
   dishId: string;
-  confidence: "high" | "medium" | "low";
+  confidence: Confidence;
 }
+
+export type RiceOption = "full" | "less" | "half" | "none";
+
+export interface MixedSideGuess {
+  dishId: string;
+  confidence: Confidence;
+  /** The recogniser isn't sure this side is right - surfaced as a "check this" marker. */
+  uncertain: boolean;
+}
+
+/** SPEC "Mixed plates" section: a mixed/cai-png-style plate doesn't get a top-3 whole-dish
+ * guess list like a single dish does - it gets a rice call plus one guess per side. */
+export type RecognitionResult =
+  | { type: "single"; guesses: DishGuess[] }
+  | { type: "mixed"; rice: RiceOption; sides: MixedSideGuess[] };

@@ -1,0 +1,16 @@
+Makan Log v0.1 is built and committed. Summary:
+
+**What was built** — an Expo + expo-router app in `apps/makan-log` with all six required screens (Today, Camera, Recognising, Results, Confirm, Saved) plus a bonus About screen, each a standalone route with sensible query-param defaults (`?sample=`, `?dish=`, `?upload=`).
+
+**Verified working end-to-end** (via Playwright against the static export): camera → sample/upload → recognising → results (top-3 guesses, search) → confirm (live-updating tweak chips, rice-group exclusivity) → saved → Today list, in both light and dark mode, including the "No estimate yet" path for dishes absent from the CSV (e.g. hokkien mee).
+
+**Key pieces:**
+- `src/theme/` — generated from `design/tokens-v0.1.json`, light/dark via `ThemeProvider`
+- `src/data/` — `NutritionSource` interface backed by JSON generated from the dietitian's CSVs (`npm run data`), a curated dish catalog, range math ported from the validated prototype logic, a simulated `Recogniser`, AsyncStorage-backed saved meals
+- `assets/samples/` — 7 openly-licensed Wikimedia Commons hawker photos, credited in `docs/decisions.md` and the About screen
+- App icon/splash from `brand/app-icon-v2/plate-light/dark-*`, HPB attribution notice, standing disclaimer, no health-claim language
+
+**Both gates pass from a clean install:** `npm run typecheck` and `npm run export:web` (`expo export --platform web`), plus `npx expo-doctor` (18/18). One environment note: this Expo SDK's packages want Node ≥22 but everything verified clean on the available Node 20.19 (documented in `docs/decisions.md`).
+
+Committed as a single root commit on `master`; nothing pushed or deployed.
+EXIT 0

@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { slotForDate, type MealSlot } from "./mealSlot";
 
 export interface SavedMeal {
   id: string;
@@ -10,6 +11,7 @@ export interface SavedMeal {
   hi: number;
   variesALot: boolean;
   savedAt: number;
+  slot: MealSlot;
 }
 
 const STORAGE_KEY = "makan-log:saved-meals:v1";
@@ -45,12 +47,14 @@ export async function getTodayMeals(): Promise<SavedMeal[]> {
   return meals.filter((m) => isToday(m.savedAt));
 }
 
-export async function addMeal(meal: Omit<SavedMeal, "id" | "savedAt">): Promise<SavedMeal> {
+export async function addMeal(meal: Omit<SavedMeal, "id" | "savedAt" | "slot">): Promise<SavedMeal> {
   const meals = await readAll();
+  const savedAt = Date.now();
   const entry: SavedMeal = {
     ...meal,
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    savedAt: Date.now(),
+    id: `${savedAt}-${Math.random().toString(36).slice(2, 8)}`,
+    savedAt,
+    slot: slotForDate(new Date(savedAt)),
   };
   meals.push(entry);
   await writeAll(meals);
