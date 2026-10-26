@@ -183,3 +183,7 @@ exports** additions; everything below it is the original v0.1 build.
 
 Plan/week view, grocery list, "check a dish before you order" as a separate flow, stall-level
 data, onboarding/dietary filters, and any backend — all out of scope per `SPEC.md`'s six screens.
+
+## Polish backlog (from Madeleine, 26 Oct)
+- Save to Today button: replace download arrow with a check mark or plus.
+- Make "logging as Breakfast" tappable to change the meal.

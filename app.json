@@ -46,7 +46,8 @@
       ]
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true,
+      "baseUrl": "/makan-log"
     }
   }
 }
